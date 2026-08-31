@@ -1,5 +1,7 @@
+import type { CSSProperties } from "react"
 import { exhibits } from "../content/exhibits"
 import { getFeaturedExhibit } from "../content/catalog"
+import { AtmosphereBackground } from "../exhibit/AtmosphereBackground"
 import { EmptyCollectionPage } from "../pages/EmptyCollectionPage"
 import { ExhibitCard } from "./ExhibitCard"
 import { FeaturedExhibit } from "./FeaturedExhibit"
@@ -15,9 +17,27 @@ export function CollectionPage() {
 
   const featuredExhibit = getFeaturedExhibit(exhibits) ?? firstExhibit
   const collectionWall = exhibits.filter((exhibit) => exhibit.slug !== featuredExhibit.slug)
+  const [base, primary, accent] = featuredExhibit.presentation.palette
 
   return (
-    <div className="collection-page">
+    <div
+      className="collection-page"
+      style={
+        {
+          "--collection-atmosphere-base": base,
+          "--collection-atmosphere-primary": primary,
+          "--collection-atmosphere-accent": accent,
+        } as CSSProperties
+      }
+    >
+      <div className="collection-page__atmosphere" aria-hidden="true">
+        <AtmosphereBackground
+          palette={featuredExhibit.presentation.palette}
+          motion="edge-bloom"
+          variant="collection"
+        />
+      </div>
+
       <header className="collection-page__intro">
         <p className="eyebrow">馆藏目录 · 共 {exhibits.length} 件</p>
         <p>打开收藏柜，从一件被保存下来的形体开始观看。</p>

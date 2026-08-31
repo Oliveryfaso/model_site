@@ -158,14 +158,15 @@ async function waitForViewerTerminalState(page: Page) {
   }
 }
 
-test("homepage renders the collection with images, no canvas, and no overflow", async ({ page }) => {
+test("homepage renders one palette atmosphere without a WebGL canvas or overflow", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" })
 
   await expect(page).toHaveTitle("电子手办收藏站")
   await expect(page.getByRole("heading", { level: 1, name: "翠核标本" })).toBeVisible()
   await expect(page.getByText("馆藏目录 · 共 3 件", { exact: true })).toBeVisible()
   await expect(page.getByText("一枚被当作未知生命核心保存的绿色标本。", { exact: true })).toBeVisible()
-  await expect(page.locator("canvas")).toHaveCount(0)
+  await expect(page.locator(".collection-page__atmosphere canvas")).toHaveCount(1)
+  await expect(page.locator(".model-experience__canvas canvas")).toHaveCount(0)
   await expectNoHorizontalOverflow(page)
 })
 
@@ -422,7 +423,8 @@ test("SPA navigation visits every exhibit twice without stacking canvases or ove
       await page.getByRole("link", { name: "返回馆藏" }).click()
       await expect(page).toHaveURL("http://127.0.0.1:4173/")
       await expect(page.getByRole("heading", { level: 1, name: "翠核标本" })).toBeVisible()
-      await expect(page.locator("canvas")).toHaveCount(0)
+      await expect(page.locator(".collection-page__atmosphere canvas")).toHaveCount(1)
+      await expect(page.locator(".model-experience__canvas canvas")).toHaveCount(0)
       await expectCanvasLifecycleBound(page)
       await expectNoHorizontalOverflow(page)
     }

@@ -4,10 +4,10 @@ import type { ExhibitPalette } from "../content/types"
 export type AtmosphereBackgroundProps = {
   palette: ExhibitPalette
   motion: "edge-bloom"
+  variant?: "exhibit" | "collection"
 }
 
 const MAX_DPR = 2
-const FOLD_COUNT = 6
 
 function rgba(hex: string, alpha: number) {
   const red = Number.parseInt(hex.slice(1, 3), 16)
@@ -22,25 +22,29 @@ function drawAtmosphere(
   height: number,
   palette: ExhibitPalette,
   elapsed: number,
+  variant: NonNullable<AtmosphereBackgroundProps["variant"]>,
 ) {
   const [base, primary, accent] = palette
+  const isCollection = variant === "collection"
+  const foldCount = isCollection ? 5 : 6
   context.clearRect(0, 0, width, height)
-  context.fillStyle = base
+  context.fillStyle = isCollection ? rgba(base, 0.34) : base
   context.fillRect(0, 0, width, height)
   context.globalCompositeOperation = "screen"
 
-  for (let index = 0; index < FOLD_COUNT; index += 1) {
-    const progress = (index + 0.5) / FOLD_COUNT
-    const drift = Math.sin(elapsed * (0.000055 + index * 0.000006) + index * 1.7)
+  for (let index = 0; index < foldCount; index += 1) {
+    const progress = (index + 0.5) / foldCount
+    const speed = (0.000055 + index * 0.000006) * (isCollection ? 0.7 : 1)
+    const drift = Math.sin(elapsed * speed + index * 1.7)
     const sway = width * (0.018 + index * 0.002) * drift
     const center = width * progress + sway
-    const foldWidth = width * (0.16 + (index % 3) * 0.025)
+    const foldWidth = width * ((isCollection ? 0.21 : 0.16) + (index % 3) * 0.025)
     const color = index % 2 === 0 ? primary : accent
     const gradient = context.createLinearGradient(0, 0, 0, height)
     gradient.addColorStop(0, rgba(color, 0))
-    gradient.addColorStop(0.42, rgba(color, 0.025))
-    gradient.addColorStop(0.82, rgba(color, 0.115))
-    gradient.addColorStop(1, rgba(color, 0))
+    gradient.addColorStop(0.42, rgba(color, isCollection ? 0.034 : 0.025))
+    gradient.addColorStop(0.82, rgba(color, isCollection ? 0.12 : 0.115))
+    gradient.addColorStop(1, rgba(color, isCollection ? 0.012 : 0))
 
     context.beginPath()
     context.moveTo(center - foldWidth, 0)
@@ -74,15 +78,19 @@ function drawAtmosphere(
     height * 1.03,
     Math.max(width, height) * 0.68,
   )
-  bloom.addColorStop(0, rgba(accent, 0.28))
-  bloom.addColorStop(0.32, rgba(primary, 0.1))
+  bloom.addColorStop(0, rgba(accent, isCollection ? 0.18 : 0.28))
+  bloom.addColorStop(0.32, rgba(primary, isCollection ? 0.065 : 0.1))
   bloom.addColorStop(1, rgba(primary, 0))
   context.fillStyle = bloom
   context.fillRect(0, 0, width, height)
   context.globalCompositeOperation = "source-over"
 }
 
-export function AtmosphereBackground({ palette, motion }: AtmosphereBackgroundProps) {
+export function AtmosphereBackground({
+  palette,
+  motion,
+  variant = "exhibit",
+}: AtmosphereBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -109,11 +117,11 @@ export function AtmosphereBackground({ palette, motion }: AtmosphereBackgroundPr
       canvas.width = Math.round(width * dpr)
       canvas.height = Math.round(height * dpr)
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
-      drawAtmosphere(context, width, height, palette, 0)
+      drawAtmosphere(context, width, height, palette, 0, variant)
     }
 
     const render = (time: number) => {
-      drawAtmosphere(context, width, height, palette, time)
+      drawAtmosphere(context, width, height, palette, time, variant)
       frame = window.requestAnimationFrame(render)
     }
 
@@ -126,12 +134,12 @@ export function AtmosphereBackground({ palette, motion }: AtmosphereBackgroundPr
       observer.disconnect()
       window.cancelAnimationFrame(frame)
     }
-  }, [motion, palette])
+  }, [motion, palette, variant])
 
   return (
     <canvas
       ref={canvasRef}
-      className="atmosphere-background"
+      className={`atmosphere-background atmosphere-background--${variant}`}
       aria-hidden="true"
       style={
         {

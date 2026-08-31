@@ -5,7 +5,7 @@ import {
   MemoryRouter,
   RouterProvider,
 } from "react-router-dom"
-import { afterEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { CollectionPage } from "./CollectionPage"
 
 function findStyleRule(selectorFragment: string): CSSStyleRule | undefined {
@@ -31,10 +31,15 @@ function findStyleRule(selectorFragment: string): CSSStyleRule | undefined {
 
 afterEach(() => {
   cleanup()
+  vi.restoreAllMocks()
 })
 
 describe("CollectionPage", () => {
-  it("opens with the featured exhibit and renders every exhibit as image-only editorial content", () => {
+  beforeEach(() => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null)
+  })
+
+  it("opens with the featured exhibit and derives its atmosphere from the featured palette", () => {
     render(
       <MemoryRouter>
         <CollectionPage />
@@ -47,7 +52,16 @@ describe("CollectionPage", () => {
       "href",
       "/exhibits/green-core/",
     )
-    expect(document.querySelector("canvas")).not.toBeInTheDocument()
+    const atmosphere = document.querySelector(".collection-page__atmosphere")
+    const canvas = atmosphere?.querySelector("canvas")
+
+    expect(atmosphere).toHaveAttribute("aria-hidden", "true")
+    expect(canvas).toHaveClass("atmosphere-background--collection")
+    expect(canvas).toHaveStyle({
+      "--atmosphere-base": "#263d1f",
+      "--atmosphere-primary": "#92b85c",
+      "--atmosphere-accent": "#b47b3e",
+    })
   })
 
   it("declares the generated cover geometry and defers non-featured image decoding", () => {
@@ -148,5 +162,15 @@ describe("CollectionPage", () => {
     expect(groupRule?.style.animationTimingFunction).toBe(
       "cubic-bezier(0.22, 1, 0.36, 1)",
     )
+  })
+
+  it("keeps the site chrome above the fixed collection atmosphere", () => {
+    const chromeRule = findStyleRule(
+      ".site-frame:has(.collection-page) > :is(.site-header, .site-footer)",
+    )
+
+    expect(chromeRule).toBeDefined()
+    expect(chromeRule?.style.position).toBe("relative")
+    expect(chromeRule?.style.zIndex).toBe("1")
   })
 })
