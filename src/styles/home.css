@@ -412,6 +412,7 @@
   }
 }
 
+::view-transition-group(exhibit-cover-pochita),
 ::view-transition-group(exhibit-cover-green-core),
 ::view-transition-group(exhibit-cover-silent-observer),
 ::view-transition-group(exhibit-cover-wilderness-messenger) {
@@ -419,12 +420,14 @@
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+::view-transition-old(exhibit-cover-pochita),
 ::view-transition-old(exhibit-cover-green-core),
 ::view-transition-old(exhibit-cover-silent-observer),
 ::view-transition-old(exhibit-cover-wilderness-messenger) {
   animation: exhibit-cover-old 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+::view-transition-new(exhibit-cover-pochita),
 ::view-transition-new(exhibit-cover-green-core),
 ::view-transition-new(exhibit-cover-silent-observer),
 ::view-transition-new(exhibit-cover-wilderness-messenger) {
@@ -432,12 +435,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(exhibit-cover-pochita),
   ::view-transition-group(exhibit-cover-green-core),
   ::view-transition-group(exhibit-cover-silent-observer),
   ::view-transition-group(exhibit-cover-wilderness-messenger) {
     animation: none !important;
   }
 
+  ::view-transition-old(exhibit-cover-pochita),
   ::view-transition-old(exhibit-cover-green-core),
   ::view-transition-old(exhibit-cover-silent-observer),
   ::view-transition-old(exhibit-cover-wilderness-messenger) {
@@ -446,6 +451,7 @@
     animation-timing-function: ease-out !important;
   }
 
+  ::view-transition-new(exhibit-cover-pochita),
   ::view-transition-new(exhibit-cover-green-core),
   ::view-transition-new(exhibit-cover-silent-observer),
   ::view-transition-new(exhibit-cover-wilderness-messenger) {

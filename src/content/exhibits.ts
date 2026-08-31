@@ -2,6 +2,26 @@ import type { Exhibit } from "./types"
 
 export const exhibits: readonly Exhibit[] = [
   {
+    slug: "pochita",
+    collectionNumber: "005",
+    title: "波奇塔：链锯小恶魔",
+    summary: "橙色小恶魔波奇塔以四足站姿抬起额前链锯。",
+    description: "以原著和官方等身软胶手办比例为依据重新雕塑，保留连续橙色犬形身体、侧置大眼、额前链锯、顶部黑色把手、四只短腿与拉绳尾巴。",
+    tags: ["波奇塔", "二次元手办", "链锯恶魔", "萌系"],
+    tools: ["Blender"],
+    cover: "/covers/pochita.jpg",
+    model: "/models/pochita.glb",
+    featured: true,
+    presentation: {
+      layout: "center-stage",
+      scene: "warm-cabinet",
+      palette: ["#11151C", "#F04A20", "#AFC4D3"],
+      lightingPresets: ["warm", "rim"],
+    },
+    animation: { mode: "static" },
+    share: { image: "/share/pochita.png" },
+  },
+  {
     slug: "green-core",
     collectionNumber: "001",
     title: "翠核标本",
@@ -10,7 +30,6 @@ export const exhibits: readonly Exhibit[] = [
     tags: ["有机", "静态", "材质"],
     cover: "/covers/avocado.jpg",
     model: "/models/avocado.glb",
-    featured: true,
     presentation: {
       layout: "center-stage",
       scene: "warm-cabinet",

@@ -46,11 +46,11 @@ describe("CollectionPage", () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole("heading", { name: "翠核标本" })).toBeInTheDocument()
-    expect(screen.getAllByRole("article")).toHaveLength(3)
-    expect(screen.getByRole("link", { name: /进入翠核标本展厅/ })).toHaveAttribute(
+    expect(screen.getByRole("heading", { name: "波奇塔：链锯小恶魔" })).toBeInTheDocument()
+    expect(screen.getAllByRole("article")).toHaveLength(4)
+    expect(screen.getByRole("link", { name: /进入波奇塔：链锯小恶魔展厅/ })).toHaveAttribute(
       "href",
-      "/exhibits/green-core/",
+      "/exhibits/pochita/",
     )
     const atmosphere = document.querySelector(".collection-page__atmosphere")
     const canvas = atmosphere?.querySelector("canvas")
@@ -58,9 +58,9 @@ describe("CollectionPage", () => {
     expect(atmosphere).toHaveAttribute("aria-hidden", "true")
     expect(canvas).toHaveClass("atmosphere-background--collection")
     expect(canvas).toHaveStyle({
-      "--atmosphere-base": "#263d1f",
-      "--atmosphere-primary": "#92b85c",
-      "--atmosphere-accent": "#b47b3e",
+      "--atmosphere-base": "#11151C",
+      "--atmosphere-primary": "#F04A20",
+      "--atmosphere-accent": "#AFC4D3",
     })
   })
 
@@ -71,16 +71,16 @@ describe("CollectionPage", () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole("img", { name: "翠核标本" })).toHaveAttribute(
+    expect(screen.getByRole("img", { name: "波奇塔：链锯小恶魔" })).toHaveAttribute(
       "fetchpriority",
       "high",
     )
-    expect(screen.getByRole("img", { name: "翠核标本" })).toHaveAttribute("width", "1600")
-    expect(screen.getByRole("img", { name: "翠核标本" })).toHaveAttribute("height", "1200")
+    expect(screen.getByRole("img", { name: "波奇塔：链锯小恶魔" })).toHaveAttribute("width", "1600")
+    expect(screen.getByRole("img", { name: "波奇塔：链锯小恶魔" })).toHaveAttribute("height", "1200")
 
     const wall = screen.getByRole("region", { name: "馆藏墙" })
     const cardImages = within(wall).getAllByRole("img")
-    expect(cardImages).toHaveLength(2)
+    expect(cardImages).toHaveLength(3)
     for (const image of cardImages) {
       expect(image).toHaveAttribute("loading", "lazy")
       expect(image).toHaveAttribute("decoding", "async")
@@ -108,7 +108,7 @@ describe("CollectionPage", () => {
       value: startViewTransition,
     })
 
-    for (const title of ["翠核标本", "静默观测者", "旷野信使"]) {
+    for (const title of ["波奇塔：链锯小恶魔", "翠核标本", "静默观测者", "旷野信使"]) {
       const router = createMemoryRouter(
         [
           { path: "/", element: <CollectionPage /> },
@@ -123,7 +123,7 @@ describe("CollectionPage", () => {
       cleanup()
     }
 
-    expect(startViewTransition).toHaveBeenCalledTimes(3)
+    expect(startViewTransition).toHaveBeenCalledTimes(4)
   })
 
   it("keeps normal router navigation when view transitions are unavailable", async () => {
@@ -141,7 +141,7 @@ describe("CollectionPage", () => {
     )
     render(<RouterProvider router={router} />)
 
-    await user.click(screen.getByRole("link", { name: "进入翠核标本展厅" }))
+    await user.click(screen.getByRole("link", { name: "进入波奇塔：链锯小恶魔展厅" }))
 
     expect(await screen.findByText("展厅已打开")).toBeInTheDocument()
   })
@@ -154,7 +154,7 @@ describe("CollectionPage", () => {
     )
 
     const groupRule = findStyleRule(
-      "::view-transition-group(exhibit-cover-green-core)",
+      "::view-transition-group(exhibit-cover-pochita)",
     )
     expect(groupRule).toBeDefined()
     expect(groupRule?.style.animationName).toBe("")
