@@ -1,0 +1,20 @@
+{
+  "slug": "example",
+  "collectionNumber": "004",
+  "title": "示例藏品",
+  "summary": "用于导入校验的简短说明。",
+  "description": "这是可交给网站内容目录继续编辑的完整描述。",
+  "tags": ["示例", "数字手办"],
+  "tier": "standard",
+  "model": "/models/example.glb",
+  "cover": "/covers/example.jpg",
+  "presentation": {
+    "layout": "center-stage",
+    "scene": "warm-cabinet",
+    "palette": ["#18212b", "#6f8fa8", "#d6a24c"],
+    "lightingPresets": ["warm", "rim"]
+  },
+  "animation": {
+    "mode": "static"
+  }
+}

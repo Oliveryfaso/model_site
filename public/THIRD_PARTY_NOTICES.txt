@@ -1,0 +1,19 @@
+Khronos glTF Sample Assets
+Repository: https://github.com/KhronosGroup/glTF-Sample-Assets
+
+Avocado
+Model: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Avocado/glTF-Binary/Avocado.glb
+Cover: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Avocado/screenshot/screenshot.jpg
+Avocado — © 2017 Public; CC0 1.0 Universal; Microsoft for model content.
+
+Antique Camera
+Model: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/AntiqueCamera/glTF-Binary/AntiqueCamera.glb
+Cover: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/AntiqueCamera/screenshot/screenshot.jpg
+Antique Camera — © 2018 UX3D; CC0 1.0 Universal; model contains an identified UX3D mark.
+
+Fox
+Model: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF-Binary/Fox.glb
+Cover: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/screenshot/screenshot.jpg
+Fox — model CC0 1.0; rigging, animation, and glTF conversion CC BY 4.0; credits: PixelMannen, tomkranis, AsoboStudio, and scurest.
+
+Source: https://github.com/KhronosGroup/glTF-Sample-Assets

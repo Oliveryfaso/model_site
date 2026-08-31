@@ -1,0 +1,21 @@
+:root {
+  color-scheme: dark;
+  --ink-950: #070806;
+  --ink-900: #12100f;
+  --wood-700: #6b4226;
+  --amber-400: #c58b52;
+  --paper-100: #f2e8da;
+  --mist-300: #b9aa9d;
+  --focus: #f1bd77;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --radius-card: 1rem;
+  --duration-fast: 160ms;
+  --duration-page: 420ms;
+}

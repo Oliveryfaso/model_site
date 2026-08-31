@@ -1,0 +1,37 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Local test and review artifacts
+output/
+reports/
+.superpowers/
+playwright-report/
+test-results/
+.playwright-cli/
+.capture-*/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# macOS metadata
+.DS_Store
+._*
+
+# The canonical deployed soundtrack is public/audio/merry-christmas-mr-lawrence.mp3.
+# Keep the original source copy outside version control to avoid a duplicate binary.
+/esmifiesta - Felicia Morales - Merry Christmas Mr Lawrence.mp3
+
+# Blender source and intake packages are local staging areas. Keep only their
+# checked-in documentation/example contract.
+workfiles/*
+!workfiles/README.md
+incoming/*
+!incoming/README.md
+!incoming/example/
+!incoming/example/exhibit.json

@@ -1,0 +1,54 @@
+{
+  "name": "digital-figure-gallery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b --pretty false",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "models:validate": "node scripts/validate-model-package.mjs",
+    "check:assets": "tsx scripts/check-asset-budgets.ts",
+    "clean:appledouble": "tsx scripts/clean-appledouble.ts",
+    "generate:routes": "tsx scripts/generate-static-routes.ts",
+    "share:cards": "tsx scripts/capture-share-cards.ts",
+    "covers:capture": "tsx scripts/capture-model-covers.ts",
+    "test:e2e": "playwright test",
+    "verify": "npm run test && npm run typecheck && PUBLIC_ORIGIN=https://gallery.example npm run build && npm run test:e2e",
+    "build": "npm run clean:appledouble && npm run typecheck && npm run validate:content && npm run check:assets && vite build && npm run generate:routes && npm run clean:appledouble",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.3",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.6",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^30.0.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  }
+}

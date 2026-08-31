@@ -1,0 +1,131 @@
+.share-card {
+  position: relative;
+  display: grid;
+  width: 1200px;
+  height: 630px;
+  grid-template-columns: 650px 550px;
+  overflow: hidden;
+  background: #17110e;
+  color: #f4e8d8;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  isolation: isolate;
+}
+
+.share-card::before {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 7px;
+  background: #c99557;
+  content: "";
+}
+
+.share-card__image-frame {
+  position: relative;
+  min-width: 0;
+  height: 630px;
+  margin: 0;
+  overflow: hidden;
+  background: #2a1d17;
+}
+
+.share-card__image-frame::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 65%, #17110e 100%),
+    linear-gradient(0deg, rgb(23 17 14 / 48%), transparent 38%);
+  content: "";
+}
+
+.share-card__image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.06) brightness(0.82);
+}
+
+.share-card__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 76px 72px 58px 58px;
+  background:
+    linear-gradient(145deg, rgb(201 149 87 / 10%), transparent 42%),
+    #17110e;
+}
+
+.share-card__accession {
+  margin: 0 0 38px;
+  color: #d6a668;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.24em;
+}
+
+.share-card h1 {
+  max-width: 420px;
+  margin: 0;
+  color: #f8eddf;
+  font-family: "Songti SC", STSong, "Noto Serif CJK SC", serif;
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: 0.055em;
+}
+
+.share-card__summary {
+  max-width: 410px;
+  margin: 36px 0 0;
+  color: #cbbdaf;
+  font-size: 24px;
+  line-height: 1.65;
+}
+
+.share-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.share-card__footer span {
+  width: 56px;
+  height: 1px;
+  background: #c99557;
+}
+
+.share-card__site-title {
+  margin: 0;
+  color: #e2d4c5;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.share-card--error {
+  display: block;
+}
+
+.share-card__error-copy {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 90px;
+}
+
+.share-card--error h1 {
+  max-width: none;
+}
+
+.share-card__error-copy > p:not(.share-card__accession, .share-card__site-title) {
+  margin: 28px 0 70px;
+  color: #cbbdaf;
+  font-size: 25px;
+}
