@@ -2,6 +2,26 @@ import type { Exhibit } from "./types"
 
 export const exhibits: readonly Exhibit[] = [
   {
+    slug: "singapore-marina-bay",
+    collectionNumber: "006",
+    title: "滨海湾：与你看夜景",
+    summary: "金沙三塔、城市灯火与水岸花园构成的夜景纪念微缩模型。",
+    description: "把一同看过的夜景收藏起来。金沙三塔与城市灯火沿水岸展开，两位小小的旅人停在花园前。建筑与花园经过艺术化编排，留下的是旅行的记忆，而非城市的等比复刻。",
+    tags: ["新加坡", "滨海湾", "夜景", "建筑微缩", "旅行纪念"],
+    tools: ["Blender"],
+    cover: "/covers/singapore-marina-bay.jpg",
+    model: "/models/singapore-marina-bay.glb",
+    featured: true,
+    presentation: {
+      layout: "center-stage",
+      scene: "cold-chamber",
+      palette: ["#091625", "#287F9B", "#EFB85E"],
+      lightingPresets: ["rim", "warm"],
+    },
+    animation: { mode: "static" },
+    share: { image: "/share/singapore-marina-bay.png" },
+  },
+  {
     slug: "pochita",
     collectionNumber: "005",
     title: "波奇塔：链锯小恶魔",
@@ -11,7 +31,6 @@ export const exhibits: readonly Exhibit[] = [
     tools: ["Blender"],
     cover: "/covers/pochita.jpg",
     model: "/models/pochita.glb",
-    featured: true,
     presentation: {
       layout: "center-stage",
       scene: "warm-cabinet",

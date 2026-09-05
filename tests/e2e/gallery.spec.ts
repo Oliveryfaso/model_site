@@ -2,6 +2,11 @@ import { expect, test, type Page } from "@playwright/test"
 
 const exhibits = [
   {
+    slug: "singapore-marina-bay",
+    title: "滨海湾：与你看夜景",
+    summary: "金沙三塔、城市灯火与水岸花园构成的夜景纪念微缩模型。",
+  },
+  {
     slug: "pochita",
     title: "波奇塔：链锯小恶魔",
     summary: "橙色小恶魔波奇塔以四足站姿抬起额前链锯。",
@@ -167,9 +172,9 @@ test("homepage renders one palette atmosphere without a WebGL canvas or overflow
   await page.goto("/", { waitUntil: "networkidle" })
 
   await expect(page).toHaveTitle("电子手办收藏站")
-  await expect(page.getByRole("heading", { level: 1, name: "波奇塔：链锯小恶魔" })).toBeVisible()
-  await expect(page.getByText("馆藏目录 · 共 4 件", { exact: true })).toBeVisible()
-  await expect(page.getByText("橙色小恶魔波奇塔以四足站姿抬起额前链锯。", { exact: true })).toBeVisible()
+  await expect(page.getByRole("heading", { level: 1, name: "滨海湾：与你看夜景" })).toBeVisible()
+  await expect(page.getByText("馆藏目录 · 共 5 件", { exact: true })).toBeVisible()
+  await expect(page.getByText("金沙三塔、城市灯火与水岸花园构成的夜景纪念微缩模型。", { exact: true })).toBeVisible()
   await expect(page.locator(".collection-page__atmosphere canvas")).toHaveCount(1)
   await expect(page.locator(".model-experience__canvas canvas")).toHaveCount(0)
   await expectNoHorizontalOverflow(page)
@@ -347,7 +352,7 @@ test("borderless viewer supports drag, wheel, transition fallback, and back navi
 
   await page.getByRole("link", { name: "返回馆藏" }).click()
   await expect(page).toHaveURL("http://127.0.0.1:4173/")
-  await expect(page.getByRole("heading", { level: 1, name: "波奇塔：链锯小恶魔" })).toBeVisible()
+  await expect(page.getByRole("heading", { level: 1, name: "滨海湾：与你看夜景" })).toBeVisible()
 })
 
 test("mobile stage keeps collapsed controls clear and expanded copy readable", async ({
@@ -400,7 +405,7 @@ test("unknown exhibit route has one heading and a working collection link", asyn
   await expect(collectionLink).toHaveAttribute("href", "/")
   await collectionLink.click()
   await expect(page).toHaveURL("http://127.0.0.1:4173/")
-  await expect(page.getByRole("heading", { level: 1, name: "波奇塔：链锯小恶魔" })).toBeVisible()
+  await expect(page.getByRole("heading", { level: 1, name: "滨海湾：与你看夜景" })).toBeVisible()
 })
 
 test("SPA navigation visits every exhibit twice without stacking canvases or overflowing", async ({
@@ -427,7 +432,7 @@ test("SPA navigation visits every exhibit twice without stacking canvases or ove
 
       await page.getByRole("link", { name: "返回馆藏" }).click()
       await expect(page).toHaveURL("http://127.0.0.1:4173/")
-      await expect(page.getByRole("heading", { level: 1, name: "波奇塔：链锯小恶魔" })).toBeVisible()
+      await expect(page.getByRole("heading", { level: 1, name: "滨海湾：与你看夜景" })).toBeVisible()
       await expect(page.locator(".collection-page__atmosphere canvas")).toHaveCount(1)
       await expect(page.locator(".model-experience__canvas canvas")).toHaveCount(0)
       await expectCanvasLifecycleBound(page)
