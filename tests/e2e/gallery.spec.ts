@@ -4,7 +4,7 @@ const exhibits = [
   {
     slug: "singapore-marina-bay",
     title: "滨海湾：与你看夜景",
-    summary: "金沙三塔、城市灯火与水岸花园构成的夜景纪念微缩模型。",
+    summary: "从滨海堤坝草坪望向金沙的 Q 版旅行纪念景观。",
   },
   {
     slug: "pochita",
@@ -174,7 +174,7 @@ test("homepage renders one palette atmosphere without a WebGL canvas or overflow
   await expect(page).toHaveTitle("电子手办收藏站")
   await expect(page.getByRole("heading", { level: 1, name: "滨海湾：与你看夜景" })).toBeVisible()
   await expect(page.getByText("馆藏目录 · 共 5 件", { exact: true })).toBeVisible()
-  await expect(page.getByText("金沙三塔、城市灯火与水岸花园构成的夜景纪念微缩模型。", { exact: true })).toBeVisible()
+  await expect(page.getByText("从滨海堤坝草坪望向金沙的 Q 版旅行纪念景观。", { exact: true })).toBeVisible()
   await expect(page.locator(".collection-page__atmosphere canvas")).toHaveCount(1)
   await expect(page.locator(".model-experience__canvas canvas")).toHaveCount(0)
   await expectNoHorizontalOverflow(page)

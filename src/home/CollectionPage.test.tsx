@@ -58,9 +58,9 @@ describe("CollectionPage", () => {
     expect(atmosphere).toHaveAttribute("aria-hidden", "true")
     expect(canvas).toHaveClass("atmosphere-background--collection")
     expect(canvas).toHaveStyle({
-      "--atmosphere-base": "#091625",
-      "--atmosphere-primary": "#287F9B",
-      "--atmosphere-accent": "#EFB85E",
+      "--atmosphere-base": "#101E28",
+      "--atmosphere-primary": "#52794D",
+      "--atmosphere-accent": "#EDC789",
     })
   })
 
