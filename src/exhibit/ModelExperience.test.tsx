@@ -61,6 +61,7 @@ import {
   disposeOwnedScene,
   normalizeOwnedScene,
   placeOwnedSceneOnPlinth,
+  resolveCenteredPlinthTopY,
   resolvePointerTilt,
   resolveModelFrame,
 } from "./ModelScene"
@@ -642,6 +643,19 @@ describe("owned scene resources", () => {
 })
 
 describe("model plinth placement and pointer tilt", () => {
+  it("raises a short model and its plinth until the model is vertically centered", () => {
+    const ownedScene = new Scene()
+    ownedScene.add(new Mesh(new BoxGeometry(4, 1, 1), new MeshStandardMaterial()))
+    normalizeOwnedScene(ownedScene, { maxWidth: 2.4, maxHeight: 3 })
+
+    const plinthTopY = resolveCenteredPlinthTopY(ownedScene, -1.08, 0.35)
+    placeOwnedSceneOnPlinth(ownedScene, plinthTopY)
+    const center = new Box3().setFromObject(ownedScene).getCenter(new Vector3())
+
+    expect(plinthTopY).toBeCloseTo(0.05)
+    expect(center.y).toBeCloseTo(0.35)
+  })
+
   it("places a normalized model with its final bounding-box minimum on the plinth top", () => {
     const ownedScene = new Scene()
     const mesh = new Mesh(new BoxGeometry(2, 4, 1), new MeshStandardMaterial())

@@ -11,6 +11,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from "react"
 import {
   DataTexture,
@@ -289,6 +290,19 @@ export function placeOwnedSceneOnPlinth<T extends Object3D>(scene: T, topY: numb
   return scene
 }
 
+export function resolveCenteredPlinthTopY(
+  scene: Object3D,
+  baseTopY: number,
+  viewerCenterY: number,
+): number {
+  scene.updateMatrixWorld(true)
+  const bounds = new Box3().setFromObject(scene)
+  const height = bounds.max.y - bounds.min.y
+  if (!Number.isFinite(height) || height <= 0) return baseTopY
+
+  return Math.max(baseTopY, viewerCenterY - height / 2)
+}
+
 export function resolvePointerTilt(
   pointer: readonly [number, number],
   reducedMotion: boolean,
@@ -446,6 +460,7 @@ function PointerTiltGroup({
 type OwnedModelProps = {
   model: string
   frame: ModelFrameConstraints
+  viewerCenterY?: number
   plinthTopY?: number
   draggingRef?: MutableRefObject<boolean>
   animation?: Exhibit["animation"]
@@ -456,6 +471,7 @@ type OwnedModelProps = {
 export function OwnedModel({
   model,
   frame,
+  viewerCenterY = 0,
   plinthTopY = DISPLAY_PLINTH_TOP_Y,
   draggingRef,
   animation,
@@ -465,11 +481,18 @@ export function OwnedModel({
   const { scene, animations } = useGLTF(model)
   const ownedScene = useMemo(() => cloneOwnedScene(scene), [scene])
   const readyScene = useRef<Object3D | null>(null)
+  const [resolvedPlinthTopY, setResolvedPlinthTopY] = useState(plinthTopY)
 
   useLayoutEffect(() => {
     normalizeOwnedScene(ownedScene, frame)
-    placeOwnedSceneOnPlinth(ownedScene, plinthTopY)
-  }, [frame.maxHeight, frame.maxWidth, ownedScene, plinthTopY])
+    const nextPlinthTopY = resolveCenteredPlinthTopY(
+      ownedScene,
+      plinthTopY,
+      viewerCenterY,
+    )
+    placeOwnedSceneOnPlinth(ownedScene, nextPlinthTopY)
+    setResolvedPlinthTopY(nextPlinthTopY)
+  }, [frame.maxHeight, frame.maxWidth, ownedScene, plinthTopY, viewerCenterY])
 
   useLayoutEffect(() => {
     ownedScene.traverse((object) => {
@@ -487,6 +510,7 @@ export function OwnedModel({
 
   return (
     <>
+      <DisplayPlinth topY={resolvedPlinthTopY} />
       {draggingRef ? (
         <PointerTiltGroup draggingRef={draggingRef}>
           <primitive object={ownedScene} />
@@ -509,7 +533,7 @@ function FramedOwnedModel({
   frameScale,
   mobile,
   ...props
-}: Omit<OwnedModelProps, "frame"> & {
+}: Omit<OwnedModelProps, "frame" | "viewerCenterY"> & {
   camera: CameraPreset
   frameScale?: number
   mobile: boolean
@@ -520,7 +544,7 @@ function FramedOwnedModel({
     [camera, frameScale, mobile, size.height, size.width],
   )
 
-  return <OwnedModel {...props} frame={frame} />
+  return <OwnedModel {...props} frame={frame} viewerCenterY={camera.target[1]} />
 }
 
 export function ModelScene({
@@ -551,7 +575,6 @@ export function ModelScene({
     >
       <SceneEnvironment profile={profile} shadows={performance.shadows} />
       <LightingRig preset={lightingPreset} />
-      <DisplayPlinth />
       <Suspense fallback={null}>
         <Bounds observe margin={1.2}>
           <FramedOwnedModel
